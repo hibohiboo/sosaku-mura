@@ -12,7 +12,7 @@ const config = {
 			fallback: 'index.html'
 		}),
 		prerender: { entries: ['*'] },
-		paths: { base: dev ? '' : '/sosaku-mura' },
+		paths: { base: '' }, //dev ? '' : '/sosaku-mura' },
 		trailingSlash: 'always'
 	}
 };
