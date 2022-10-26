@@ -1,6 +1,7 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
-const dev = process.env.NODE_ENV === 'development';
+const dev = process.env.npm_lifecycle_event === 'dev';
+console.log('dev', process.env);
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
@@ -12,7 +13,7 @@ const config = {
 			fallback: 'index.html'
 		}),
 		prerender: { entries: ['*'] },
-		paths: { base: '' }, //dev ? '' : '/sosaku-mura' },
+		paths: { base: dev ? '' : '/sosaku-mura' },
 		trailingSlash: 'always'
 	}
 };
