@@ -11,7 +11,12 @@
 	</main>
 
 	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<div>© hibohiboo. All rights.</div>
+		<div>
+			<a href="/"> TOP </a>{' '}
+			<a href="/cartagraph/privacy"> プライバシーポリシー </a>{' '}
+			<a href="/cartagraph/privacy"> 利用規約 </a>
+		</div>
 	</footer>
 </div>
 
