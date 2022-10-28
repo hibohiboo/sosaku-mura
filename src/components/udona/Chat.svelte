@@ -20,20 +20,13 @@
   messages.set(comments);
   const isEnterEvent = (event: any): event is { key: string; target: { value: string } } =>
     event?.key === 'Enter';
-
-  async function handleKeydown(event: unknown) {
-    if (!isEnterEvent(event)) return;
-
-    const text = event.target.value;
-    if (!text) return;
+  export let send = async (text: string) => {
     messages.update((m) =>
       m.concat({
         author: 'user',
         text
       })
     );
-
-    event.target.value = '';
 
     const reply = 'rep';
     await new Promise((resolve) => setTimeout(resolve, 200 + Math.random() * 200));
@@ -54,6 +47,12 @@
           text: reply
         })
     );
+  };
+  async function handleKeydown(event: unknown) {
+    if (!isEnterEvent(event)) return;
+    const text = event.target.value;
+    if (!text) return;
+    send(text);
   }
 </script>
 
