@@ -1,7 +1,6 @@
 <script>
-  import Chatarea from '../components/chat/Chatarea.svelte';
-
-  import { getPeerId } from '../domain/skyway/chat';
+  import Chat from '../../components/udona/Chat.svelte';
+  import { getPeerId } from '../../domain/skyway/chat';
 
   let ownPeerId = '';
   const getId = async () => {
@@ -26,5 +25,5 @@
 {/if}
 
 {#if targetPeerId}
-  <Chatarea />
+  <Chat />
 {/if}

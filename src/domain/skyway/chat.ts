@@ -18,45 +18,46 @@ export const getPeerId = async () => new Promise<string>((resolve, reject) => {
 });
 
 
-// export const startConnection = (peerId: string) => {
-//   let messages = '';
-//   const dataConnection = peer.connect('');
-//   dataConnection.once('open', async () => {
-//     messages += `=== DataConnection has been opened ===\n`;
-//   });
+export const startConnection = (peerId: string) => {
+  if (!peer) return
+  let messages = '';
+  const dataConnection = peer.connect(peerId);
+  dataConnection.once('open', async () => {
+    messages += `=== DataConnection has been opened ===\n`;
+  });
 
-//   dataConnection.on('data', data => {
-//     messages += `Remote: ${data}\n`;
-//   });
+  dataConnection.on('data', data => {
+    messages += `Remote: ${data}\n`;
+  });
 
-//   dataConnection.once('close', () => {
-//     messages += `=== DataConnection has been closed ===\n`;
+  dataConnection.once('close', () => {
+    messages += `=== DataConnection has been closed ===\n`;
 
-//   });
+  });
 
-//   // Register connected peer handler
-//   peer.on('connection', dataConnection => {
-//     dataConnection.once('open', async () => {
-//       messages += `=== DataConnection has been opened ===\n`;
+  // Register connected peer handler
+  peer.on('connection', dataConnection => {
+    dataConnection.once('open', async () => {
+      messages += `=== DataConnection has been opened ===\n`;
 
 
-//     });
+    });
 
-//     dataConnection.on('data', data => {
-//       messages += `Remote: ${data}\n`;
-//     });
+    dataConnection.on('data', data => {
+      messages += `Remote: ${data}\n`;
+    });
 
-//     dataConnection.once('close', () => {
-//       messages += `=== DataConnection has been closed ===\n`;
+    dataConnection.once('close', () => {
+      messages += `=== DataConnection has been closed ===\n`;
 
-//     });
+    });
 
-//     // // Register closing handler
-//     // closeTrigger.addEventListener('click', () => dataConnection.close(true), {
-//     //   once: true,
-//     // });
+    // // Register closing handler
+    // closeTrigger.addEventListener('click', () => dataConnection.close(true), {
+    //   once: true,
+    // });
 
-//   });
+  });
 
-//   peer.on('error', console.error);
-// }
+  peer.on('error', console.error);
+}
