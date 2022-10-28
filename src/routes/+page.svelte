@@ -1,32 +1,21 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+  import { getPeerId } from '../domain/skyway/chat';
+  import Chatarea from '../components/chat/Chatarea.svelte';
+
+  let peerId = '';
+  const getId = async () => {
+    peerId = await getPeerId();
+  };
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+  <title>創作の村</title>
+  <meta name="description" content="ないものは作ればいい" />
 </svelte:head>
-
-<section>
-	<h1>
-		to your new<br />SvelteKit app
-	</h1>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-</style>
+<div>
+  <button on:click={getId}>チャットを始める</button>
+  <div>id: {peerId}</div>
+</div>
+{#if peerId}
+  <Chatarea />
+{/if}
