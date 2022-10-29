@@ -5,7 +5,7 @@
   // // https://akito-fujita.hatenablog.com/entry/2019/05/15/165506
   let div: HTMLDivElement | undefined = undefined;
   let autoscroll: boolean | undefined;
-
+  let value = '';
   beforeUpdate(() => {
     autoscroll = div && div.offsetHeight + div.scrollTop > div.scrollHeight - 20;
   });
@@ -21,13 +21,6 @@
   const isEnterEvent = (event: any): event is { key: string; target: { value: string } } =>
     event?.key === 'Enter';
   export let send = async (text: string) => {
-    messages.update((m) =>
-      m.concat({
-        author: 'user',
-        text
-      })
-    );
-
     const reply = 'rep';
     await new Promise((resolve) => setTimeout(resolve, 200 + Math.random() * 200));
 
@@ -52,7 +45,14 @@
     if (!isEnterEvent(event)) return;
     const text = event.target.value;
     if (!text) return;
+    messages.update((m) =>
+      m.concat({
+        author: 'user',
+        text
+      })
+    );
     send(text);
+    value = '';
   }
 </script>
 
@@ -67,7 +67,7 @@
     {/each}
   </div>
 
-  <input on:keydown={handleKeydown} />
+  <input on:keydown={handleKeydown} bind:value />
 </div>
 
 <style>

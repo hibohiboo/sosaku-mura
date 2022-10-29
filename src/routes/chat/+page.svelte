@@ -1,21 +1,22 @@
 <script lang="ts">
   import { messages } from '../../store/chatMessage';
   import Chat from '../../components/udona/Chat.svelte';
-  import { getPeerId, startConnection } from '../../domain/skyway/chat';
+  import { getPeerId, sendMessage, startConnection } from '../../domain/skyway/chat';
 
   let ownPeerId = '';
-  const getId = async () => {
-    ownPeerId = await getPeerId();
-  };
-  let targetPeerId = '';
-  const callback = (data: any) => {
+  const watcher = (data: any) => {
     messages.update((m) =>
       m.filter((comment) => !comment.placeholder).concat({ author: 'eliza', text: data })
     );
   };
+  const getId = async () => {
+    ownPeerId = await getPeerId(watcher);
+  };
+  let targetPeerId = '';
+
   let connect: { send: any } | undefined = undefined;
   const startChat = async () => {
-    connect = await startConnection(targetPeerId, callback);
+    startConnection(targetPeerId, watcher);
   };
 </script>
 
@@ -35,10 +36,5 @@
 {/if}
 
 {#if ownPeerId}
-  <Chat
-    send={async (text) => {
-      connect?.send(text);
-      console.log(text);
-    }}
-  />
+  <Chat send={async (data) => sendMessage(data)} />
 {/if}
