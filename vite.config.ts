@@ -8,7 +8,8 @@ const config: UserConfig = {
   plugins: [sveltekit()],
   define: {
     VITE_DEFINE_BASE_PATH: JSON.stringify(dev ? '' : '/sosaku-mura'),
-    VITE_DEFINE_SKYWAY_KEY: JSON.stringify(process.env.DEFINE_SKYWAY_KEY)
+    VITE_DEFINE_SKYWAY_KEY: JSON.stringify(process.env.DEFINE_SKYWAY_KEY),
+    VITE_DEFINE_ROOM_PASSWORD: JSON.stringify(process.env.DEFINE_ROOM_PASSWORD)
   },
   server: { port: 4200 }
 };

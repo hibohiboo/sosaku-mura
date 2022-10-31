@@ -18,14 +18,13 @@ export interface Connection {
   readonly callback: ConnectionCallback;
   readonly bandwidthUsage: number;
 
-  // @diff 戻り値がないエラーが出るのでいったんany型に
-  open(peerId: string): any
-  open(userId: string, roomId: string, roomName: string, password: string): any
-  close(): any
+  open(peerId: string): void
+  open(userId: string, roomId: string, roomName: string, password: string): void
+  close(): void
   connect(peerId: string): boolean
   disconnect(peerId: string): boolean
-  disconnectAll(): any
-  send(data: any, sendTo?: string): any
-  setApiKey(key: string): any;
+  disconnectAll(): void
+  send(data: void, sendTo?: string): void
+  setApiKey(key: string): void;
   listAllPeers(): Promise<string[]>
 }

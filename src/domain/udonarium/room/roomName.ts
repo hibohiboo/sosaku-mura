@@ -32,10 +32,8 @@ export const getRooms = async () => {
 }
 
 const initNetwork = () => new Promise<string>((resolve) => {
-  console.log('init start')
   EventSystem.register('lobby').on(EventName.OPEN_NETWORK, () => {
     resolve(Network.peerId)
-    console.log('init end')
   })
   Network.setApiKey(skywayKey);
   Network.open();
@@ -45,11 +43,15 @@ const initNetwork = () => new Promise<string>((resolve) => {
 export const getFirstRoom = async () => {
   await initNetwork();
 
-  // 初回では接続できないことがあるので3回までリトライする
+  // 初回では接続できないことがあるので、何回かリトライする
   for (let i = 0, maxRetries = 5; i < maxRetries; i++) {
     const rooms = await getRooms();
     if (rooms.length !== 0) return rooms
     await new Promise((r) => setTimeout(r, 200));
   }
   return []
+}
+export const createRoom = async (roomName: string, roomPassword = '') => {
+  const userId = Network.peerContext ? Network.peerContext.userId : PeerContext.generateId();
+  Network.open(userId, PeerContext.generateId('***'), roomName, roomPassword);
 }
