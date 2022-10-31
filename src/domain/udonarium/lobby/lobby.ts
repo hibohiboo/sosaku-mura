@@ -1,13 +1,15 @@
 
-import { Network } from "../class/core/system";
+import { skywayKey } from "../../../constants";
+import { EventSystem, Network } from "../class/core/system";
 import { PeerContext } from "../class/core/system/network/peer-context";
+import { EventName } from "../event/constants";
+
 
 export const getRooms = async () => {
   const rooms = [];
   const peersOfroom: { [room: string]: PeerContext[] } = {};
   const peerIds = await Network.listAllPeers();
-  console.log('Network', Network);
-  console.log('ids', peerIds)
+
   for (const peerId of peerIds) {
     const context = PeerContext.parse(peerId);
     if (context.isRoom) {
@@ -27,4 +29,27 @@ export const getRooms = async () => {
     return 0;
   });
   return rooms
+}
+
+const initNetwork = () => new Promise<string>((resolve) => {
+  console.log('init start')
+  EventSystem.register('lobby').on(EventName.OPEN_NETWORK, () => {
+    resolve(Network.peerId)
+    console.log('init end')
+  })
+  Network.setApiKey(skywayKey);
+  Network.open();
+})
+
+
+export const getFirstRoom = async () => {
+  await initNetwork();
+
+  // 初回では接続できないことがあるので3回までリトライする
+  for (let i = 0, maxRetries = 5; i < maxRetries; i++) {
+    const rooms = await getRooms();
+    if (rooms.length !== 0) return rooms
+    await new Promise((r) => setTimeout(r, 200));
+  }
+  return []
 }

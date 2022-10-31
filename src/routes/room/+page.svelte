@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { getRooms } from '../../domain/udonarium/lobby/lobby';
+  import { getFirstRoom, getRooms } from '../../domain/udonarium/lobby/lobby';
   import type { PeerContext } from 'src/domain/udonarium/class/core/system/network/peer-context';
+  import { onMount } from 'svelte';
 
   let rooms: {
     alias: string;
@@ -9,7 +10,11 @@
   }[] = [];
   const reload = async () => {
     rooms = await getRooms();
+    console.log(rooms);
   };
+  onMount(async () => {
+    rooms = await getFirstRoom();
+  });
 </script>
 
 <svelte:head>
@@ -22,9 +27,9 @@
     <div>ルームがありません</div>
   {:else}
     <ul>
-      {#each rooms as { alias, roomName }, i}
+      {#each rooms as room, i}
         <li>
-          {alias} : {roomName}
+          {room.roomName}:{room.peerContexts.length}人
         </li>
       {/each}
     </ul>
