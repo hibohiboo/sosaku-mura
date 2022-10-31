@@ -11,14 +11,22 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "^1.0.0-next.46",
-    "@sveltejs/kit": "^1.0.0-next.528",
+    "@sveltejs/adapter-static": "^1.0.0-next.47",
+    "@sveltejs/kit": "^1.0.0-next.529",
+    "@types/crypto-js": "^4.1.1",
+    "@types/lzbase62": "^2.0.0",
+    "@types/msgpack-lite": "^0.1.8",
+    "@types/pako": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
+    "crypto-js": "^4.1.1",
     "dotenv": "^16.0.3",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
+    "lzbase62": "^2.0.0",
+    "msgpack-lite": "^0.1.26",
+    "pako": "^2.0.4",
     "prettier": "^2.7.1",
     "prettier-plugin-svelte": "^2.8.0",
     "skyway-js": "^4.4.5",
@@ -27,7 +35,7 @@
     "svelte-preprocess": "^4.10.7",
     "tslib": "^2.4.0",
     "typescript": "^4.8.4",
-    "vite": "^3.2.1"
+    "vite": "^3.2.2"
   },
   "type": "module",
   "msw": {
