@@ -24,7 +24,7 @@ export interface Connection {
   connect(peerId: string): boolean
   disconnect(peerId: string): boolean
   disconnectAll(): void
-  send(data: void, sendTo?: string): void
+  send(data: any, sendTo?: string): void
   setApiKey(key: string): void;
   listAllPeers(): Promise<string[]>
 }
