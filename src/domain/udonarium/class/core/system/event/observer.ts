@@ -1,16 +1,16 @@
 import type { Event } from './event';
 import type { Subject } from './subject';
-import { EventName } from '../../../../event/constants';
+import { EVENT_NAME } from '../../../../event/constants';
 
 export type Callback<T> = (event: Event<T>, listener?: Observer) => void;
 
 export interface EventMap {
-  [EventName.OPEN_NETWORK]: { peerId: string };
-  [EventName.CLOSE_NETWORK]: { peerId: string };
-  [EventName.NETWORK_ERROR]: { peerId: string, errorType: string, errorMessage: string, errorObject: any };
-  [EventName.CONNECT_PEER]: { peerId: string };
-  [EventName.DISCONNECT_PEER]: { peerId: string };
-  [EventName.UPDATE_GAME_OBJECT]: {
+  [EVENT_NAME.OPEN_NETWORK]: { peerId: string };
+  [EVENT_NAME.CLOSE_NETWORK]: { peerId: string };
+  [EVENT_NAME.NETWORK_ERROR]: { peerId: string, errorType: string, errorMessage: string, errorObject: any };
+  [EVENT_NAME.CONNECT_PEER]: { peerId: string };
+  [EVENT_NAME.DISCONNECT_PEER]: { peerId: string };
+  [EVENT_NAME.UPDATE_GAME_OBJECT]: {
     aliasName: string;
     identifier: string;
     majorVersion: number;
@@ -18,6 +18,7 @@ export interface EventMap {
     // eslint-disable-next-line @typescript-eslint/ban-types
     syncData: Object;
   };
+  [EVENT_NAME.SEND_SIMPLE_MESSAGE]: string
 }
 
 export interface Observer {

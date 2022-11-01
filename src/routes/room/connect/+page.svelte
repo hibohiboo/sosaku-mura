@@ -2,7 +2,7 @@
   import { getFirstRoom, getRooms } from '../../../domain/udonarium/room/roomName';
   import type { PeerContext } from 'src/domain/udonarium/class/core/system/network/peer-context';
   import { onMount } from 'svelte';
-  import { createRoom } from '../../../domain/udonarium/room/lobby';
+  import { createRoom, sendSimpleMessage } from '../../../domain/udonarium/room/lobby';
 
   let rooms: {
     alias: string;
@@ -13,10 +13,12 @@
     rooms = await getRooms();
     console.log(rooms);
   };
-  onMount(async () => {
+  const onClick = async () => {
     rooms = await getFirstRoom();
-    await createRoom();
-  });
+    createRoom((ev) => {
+      console.log('test', ev);
+    });
+  };
 </script>
 
 <svelte:head>
@@ -24,6 +26,8 @@
   <meta name="description" content="ないものは作ればいい" />
 </svelte:head>
 <div>
+  <div on:click={onClick}>接続</div>
+  <div on:click={sendSimpleMessage}>テスト送信</div>
   {#if rooms.length === 0}
     <div>ルームがありません</div>
   {:else}

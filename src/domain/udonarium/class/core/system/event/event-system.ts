@@ -4,7 +4,7 @@ import { Listener } from './listener';
 import type { EventContext } from './event';
 import type { Callback } from './observer';
 import type { Subject } from './subject';
-import { EventName } from '../../../../event/constants';
+import { EVENT_NAME } from '../../../../event/constants';
 
 type EventName = string;
 
@@ -119,20 +119,20 @@ export class EventSystem implements Subject {
     const callback = Network.instance.callback;
 
     callback.onOpen = (peerId) => {
-      this.trigger(EventName.OPEN_NETWORK, { peerId: peerId });
+      this.trigger(EVENT_NAME.OPEN_NETWORK, { peerId: peerId });
     }
     callback.onClose = (peerId) => {
-      this.trigger(EventName.CLOSE_NETWORK, { peerId: peerId });
+      this.trigger(EVENT_NAME.CLOSE_NETWORK, { peerId: peerId });
     }
 
     callback.onConnect = (peerId) => {
       this.sendSystemMessage('<' + peerId + '> connect <DataConnection>');
-      this.trigger(EventName.CONNECT_PEER, { peerId: peerId });
+      this.trigger(EVENT_NAME.CONNECT_PEER, { peerId: peerId });
     }
 
     callback.onDisconnect = (peerId) => {
       this.sendSystemMessage('<' + peerId + '> disconnect <DataConnection>');
-      this.trigger(EventName.DISCONNECT_PEER, { peerId: peerId });
+      this.trigger(EVENT_NAME.DISCONNECT_PEER, { peerId: peerId });
     }
 
     callback.onData = (peerId, data: EventContext<never>[]) => {
@@ -143,7 +143,7 @@ export class EventSystem implements Subject {
 
     callback.onError = (peerId, errorType, errorMessage, errorObject) => {
       this.sendSystemMessage('<' + peerId + '> ' + errorMessage);
-      this.trigger(EventName.NETWORK_ERROR, { peerId: peerId, errorType: errorType, errorMessage: errorMessage, errorObject: errorObject });
+      this.trigger(EVENT_NAME.NETWORK_ERROR, { peerId: peerId, errorType: errorType, errorMessage: errorMessage, errorObject: errorObject });
     }
   }
 

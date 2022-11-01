@@ -76,6 +76,7 @@ export class Network {
 
   send(data: any, sendTo?: string) {
     this.queue.add({ data: data, sendTo: sendTo });
+    console.log('queur', this.queue)
     if (this.sendInterval === null) {
       this.sendInterval = setZeroTimeout(this.sendCallback);
     }
@@ -92,6 +93,7 @@ export class Network {
       loopCount--;
       this.queue.delete(item);
       if (item.sendTo == null) {
+        console.log('bload cast', item);
         broadcast.push(item.data);
       } else if (item.sendTo === this.peerId) {
         echocast.push(item.data);

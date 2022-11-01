@@ -2,7 +2,7 @@
 import { skywayKey } from "../../../constants";
 import { EventSystem, Network } from "../class/core/system";
 import { PeerContext } from "../class/core/system/network/peer-context";
-import { EventName } from "../event/constants";
+import { EVENT_NAME } from "../event/constants";
 
 
 export const getRooms = async () => {
@@ -32,7 +32,7 @@ export const getRooms = async () => {
 }
 
 const initNetwork = () => new Promise<string>((resolve) => {
-  EventSystem.register('lobby').on(EventName.OPEN_NETWORK, () => {
+  EventSystem.register('lobby').on(EVENT_NAME.OPEN_NETWORK, () => {
     resolve(Network.peerId)
   })
   Network.setApiKey(skywayKey);
