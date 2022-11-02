@@ -1,5 +1,6 @@
 
 import { LOBBY_ROOM_ID, LOBBY_ROOM_NAME, LOBBY_ROOM_PASS } from "../../lobby/constants";
+import { ObjectStore } from "../class/core/synchronize-object/object-store";
 import { EventSystem, Network } from "../class/core/system";
 import { PeerContext } from "../class/core/system/network/peer-context";
 import { PeerUser } from "../class/peer-user";
@@ -17,6 +18,9 @@ export const createPeerUser = () => {
       myUser.userId = Network.peerContext.userId;
     });
   return myUser
+}
+export const getUsers = () => {
+  return ObjectStore.instance.getObjects<PeerUser>(PeerUser);
 }
 
 interface EventMessage {
