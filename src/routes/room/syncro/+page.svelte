@@ -1,6 +1,11 @@
 <script lang="ts">
-  import { createPeerUser, getUsers } from '../../../domain/udonarium/room/lobbyWithUser';
+  import {
+    createPeerUser,
+    getUsers,
+    initGameObject
+  } from '../../../domain/udonarium/room/lobbyWithUser';
   import { initLobby, sendSimpleMessage } from '../../../domain/udonarium/room/lobby';
+  initGameObject();
   const user = createPeerUser();
   let users = getUsers();
   const onClick = async () => {
@@ -8,6 +13,7 @@
       console.log('test', ev);
     });
   };
+
   $: usernames = users.map((u) => u.name);
 </script>
 
@@ -35,3 +41,4 @@
     <li>{name}</li>
   {/each}
 </ul>
+<pre>{JSON.stringify(users, null, 2)}</pre>

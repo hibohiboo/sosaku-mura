@@ -1,6 +1,9 @@
 
 import { LOBBY_ROOM_ID, LOBBY_ROOM_NAME, LOBBY_ROOM_PASS } from "../../lobby/constants";
+import { ObjectFactory } from "../class/core/synchronize-object/object-factory";
+import { ObjectSerializer } from "../class/core/synchronize-object/object-serializer";
 import { ObjectStore } from "../class/core/synchronize-object/object-store";
+import { ObjectSynchronizer } from "../class/core/synchronize-object/object-synchronizer";
 import { EventSystem, Network } from "../class/core/system";
 import { PeerContext } from "../class/core/system/network/peer-context";
 import { PeerUser } from "../class/peer-user";
@@ -87,8 +90,16 @@ const connectLobby = (peerContexts: PeerContext[]) => {
     });
 }
 
+export const initGameObject = () => {
+  ObjectFactory.instance;
+  ObjectSerializer.instance;
+  ObjectStore.instance;
+  ObjectSynchronizer.instance.initialize();
+}
+
 export const initLobby = async (callback: (message: EventMessage) => void) => {
   const rooms = await initAndGetRooms()
+
   const lobby = rooms.find(room => room.roomName === LOBBY_ROOM_NAME)
   if (lobby) {
     connectLobby(lobby.peerContexts)
