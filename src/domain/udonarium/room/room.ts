@@ -40,7 +40,7 @@ const initNetwork = () => new Promise<string>((resolve) => {
 })
 
 
-export const getFirstRoom = async () => {
+export const initAndGetRooms = async () => {
   await initNetwork();
 
   // 初回では接続できないことがあるので、何回かリトライする

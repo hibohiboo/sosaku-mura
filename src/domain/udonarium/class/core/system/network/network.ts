@@ -93,7 +93,6 @@ export class Network {
       loopCount--;
       this.queue.delete(item);
       if (item.sendTo == null) {
-        console.log('bload cast', item);
         broadcast.push(item.data);
       } else if (item.sendTo === this.peerId) {
         echocast.push(item.data);
