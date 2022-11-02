@@ -1,9 +1,23 @@
 
-import { LOBBY_ROOM_ID, LOBBY_ROOM_NAME, LOBBY_ROOM_PASS } from "../../../domain/lobby/constants";
+import { LOBBY_ROOM_ID, LOBBY_ROOM_NAME, LOBBY_ROOM_PASS } from "../../lobby/constants";
 import { EventSystem, Network } from "../class/core/system";
 import { PeerContext } from "../class/core/system/network/peer-context";
-import { EVENT_NAME, } from "../event/constants";
+import { PeerUser } from "../class/peer-user";
+import { EVENT_NAME } from "../event/constants";
 import { initAndGetRooms } from "./room";
+
+export const createPeerUser = () => {
+  const myUser = PeerUser.createMyUser();
+  myUser.name = 'プレイヤー';
+
+  EventSystem.register('application init')
+    .on(EVENT_NAME.OPEN_NETWORK, event => {
+      console.log('OPEN_NETWORK', event.data.peerId);
+      myUser.peerId = Network.peerContext.peerId;
+      myUser.userId = Network.peerContext.userId;
+    });
+  return myUser
+}
 
 interface EventMessage {
   isSendFromSelf: boolean;
@@ -14,9 +28,10 @@ interface EventMessage {
 const resetNetwork = () => {
   if (Network.peerContexts.length < 1) {
     Network.open();
+    if (PeerUser.myUser == null) return
+    PeerUser.myUser.peerId = Network.peerId;
   }
 }
-
 export const getUserId = () => {
   if (Network.peerContext) {
     console.log('peercontext id')
@@ -28,6 +43,8 @@ export const getUserId = () => {
 const openLobby = () => {
   const userId = getUserId()
   Network.open(userId, LOBBY_ROOM_ID, LOBBY_ROOM_NAME, LOBBY_ROOM_PASS);
+  if (PeerUser.myUser == null) return
+  PeerUser.myUser.peerId = Network.peerId;
 }
 const listenPeerEvent = (triedPeer: string[], peerContexts: PeerContext[]) => {
   EventSystem.register(triedPeer)

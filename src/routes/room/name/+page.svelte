@@ -1,6 +1,6 @@
 <script lang="ts">
   import { initAndGetRooms, getRooms } from '../../../domain/udonarium/room/room';
-  import type { PeerContext } from 'src/domain/udonarium/class/core/system/network/peer-context';
+  import type { PeerContext } from '../../../domain/udonarium/class/core/system/network/peer-context';
   import { onMount } from 'svelte';
 
   let rooms: {
