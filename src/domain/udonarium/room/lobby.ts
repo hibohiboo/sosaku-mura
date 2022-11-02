@@ -78,6 +78,6 @@ export const initLobby = async (callback: (message: EventMessage) => void) => {
 
 }
 
-export const sendSimpleMessage = () => {
-  EventSystem.call(EVENT_NAME.SEND_SIMPLE_MESSAGE, 'self message');
+export const sendSimpleMessage = (message: string) => {
+  EventSystem.call(EVENT_NAME.SEND_SIMPLE_MESSAGE, message);
 }

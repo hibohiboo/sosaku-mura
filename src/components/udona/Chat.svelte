@@ -14,7 +14,7 @@
     if (autoscroll && div) div.scrollTo(0, div.scrollHeight);
   });
 
-  let comments: { author: string; text: string; placeholder?: boolean }[] = [
+  export let comments: { author: string; text: string; placeholder?: boolean }[] = [
     { author: 'eliza', text: 'hello' }
   ];
   messages.set(comments);

@@ -14,5 +14,5 @@
 </svelte:head>
 <div>
   <div on:click={onClick}>接続</div>
-  <div on:click={sendSimpleMessage}>テスト送信</div>
+  <div on:click={() => sendSimpleMessage('test message')}>テスト送信</div>
 </div>
