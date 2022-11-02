@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import { initLobby, sendSimpleMessage } from '../../../domain/udonarium/room/lobby';
   import { messages } from '../../../store/chatMessage';
-  let comments = [{ author: 'eliza', text: 'hellllo' }];
+  let comments = [{ author: 'eliza', text: 'そこにロマンはあるのかしら' }];
   onMount(() => {
     initLobby((ev) => {
       console.log('test event', ev);

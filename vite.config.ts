@@ -13,7 +13,7 @@ const config: UserConfig = {
     VITE_DEFINE_SKYWAY_KEY: JSON.stringify(process.env.DEFINE_SKYWAY_KEY),
     VITE_DEFINE_ROOM_PASSWORD: JSON.stringify(process.env.DEFINE_ROOM_PASSWORD)
   },
-  server: { port: 4200 }
+  server: { port: 4200 },
 };
 
 export default config;

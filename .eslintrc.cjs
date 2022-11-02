@@ -22,6 +22,7 @@ module.exports = {
     '@typescript-eslint/no-namespace': ['warn'],
     '@typescript-eslint/no-empty-function': ['warn'],
     '@typescript-eslint/prefer-namespace-keyword': ['warn'],
+    '@typescript-eslint/ban-types': ['warn'],
     'no-empty': ['warn'],
     'prefer-spread': ['warn']
   }
