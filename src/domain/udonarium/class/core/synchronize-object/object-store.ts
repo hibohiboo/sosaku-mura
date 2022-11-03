@@ -1,3 +1,4 @@
+import { EVENT_NAME } from '../../../event/constants';
 import { EventSystem } from '../system';
 import { setZeroTimeout } from '../system/util/zero-timeout';
 import type { GameObject, ObjectContext } from './game-object';
@@ -65,7 +66,7 @@ export class ObjectStore {
 
   private _delete(object: GameObject, shouldBroadcast: boolean): GameObject | null {
     if (this.remove(object) === null) return null;
-    if (shouldBroadcast) EventSystem.call('DELETE_GAME_OBJECT', { identifier: object.identifier });
+    if (shouldBroadcast) EventSystem.call(EVENT_NAME.DELETE_GAME_OBJECT, { identifier: object.identifier });
 
     return object;
   }
@@ -117,7 +118,7 @@ export class ObjectStore {
       }
       return;
     }
-    EventSystem.call('UPDATE_GAME_OBJECT', context);
+    EventSystem.call(EVENT_NAME.UPDATE_GAME_OBJECT, context);
     this.queueMap.set(context.identifier, context as ObjectContext);
     if (this.updateInterval === null) {
       this.updateInterval = setZeroTimeout(this.updateCallback);

@@ -47,6 +47,7 @@ export class ObjectSynchronizer {
         this.synchronize();
       })
       .on(EVENT_NAME.REQUEST_GAME_OBJECT, event => {
+        console.log('REQUEST_GAME_OBJECT ' + event);
         if (event.isSendFromSelf) return;
         if (ObjectStore.instance.isDeleted(event.data)) {
           EventSystem.call(EVENT_NAME.DELETE_GAME_OBJECT, { identifier: event.data }, event.sendFrom);
@@ -96,7 +97,7 @@ export class ObjectSynchronizer {
     const catalog = ObjectStore.instance.getCatalog();
     const interval = setInterval(() => {
       const count = catalog.length < 2048 ? catalog.length : 2048;
-      EventSystem.call('SYNCHRONIZE_GAME_OBJECT', catalog.splice(0, count), sendTo);
+      EventSystem.call(EVENT_NAME.SYNCHRONIZE_GAME_OBJECT, catalog.splice(0, count), sendTo);
       if (catalog.length < 1) clearInterval(interval);
     });
   }
