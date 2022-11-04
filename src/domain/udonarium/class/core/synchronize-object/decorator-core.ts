@@ -1,8 +1,10 @@
 import type { GameObject } from './game-object';
 import { ObjectFactory, type Type } from './object-factory';
 import type { ObjectNode } from './object-node';
+import "reflect-metadata";
 
 export function defineSyncObject(alias: string) {
+  console.log('defineSyncObject ', alias)
   return <T extends GameObject>(constructor: Type<T>) => {
     ObjectFactory.instance.register(constructor, alias);
   }
@@ -12,6 +14,7 @@ export function defineSyncVariable() {
   return <T extends GameObject>(target: T, key: string | symbol) => {
     function getter(this: any) {
       console.log('defineSyncVariable getter', key)
+      if (!this.context) return 'not context'
       return this.context.syncData[key];
     }
 
@@ -27,7 +30,7 @@ export function defineSyncVariable() {
       enumerable: true,
       configurable: true
     });
-    console.log('defineSyncVariable', target)
+    console.log('defineSyncVariable', JSON.stringify(target))
   }
 }
 

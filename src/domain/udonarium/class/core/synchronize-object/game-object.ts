@@ -27,6 +27,7 @@ export class GameObject {
 
   constructor(identifier: string = UUID.generateUuid()) {
     this.context.identifier = identifier;
+    console.log(JSON.stringify(this))
   }
 
   initialize() {

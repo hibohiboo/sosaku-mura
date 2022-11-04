@@ -15,8 +15,7 @@ export interface EventMap {
     identifier: string;
     majorVersion: number;
     minorVersion: number;
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    syncData: Object;
+    syncData: Record<string | symbol, any>;
   };
   [EVENT_NAME.SEND_SIMPLE_MESSAGE]: string
 }

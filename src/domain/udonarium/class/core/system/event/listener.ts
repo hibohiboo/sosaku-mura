@@ -45,8 +45,8 @@ export class Listener implements Observer {
   once(eventName: string, priority: number, callback: Callback<any>): Listener
   once<T>(eventName: string, callback: Callback<T>): Listener
   once<T>(eventName: string, priority: number, callback: Callback<T>): Listener
-  once(...args: any[]): Listener {
-    const listener = this.on.apply(this, args as any);
+  once(...args: any): Listener {
+    const listener = this.on.apply(this, args);
     this._isOnlyOnce = true;
     return listener;
   }

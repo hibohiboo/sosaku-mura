@@ -41,7 +41,7 @@ export class Network {
 
   open(peerId?: string): void
   open(userId: string, roomId: string, roomName: string, password: string): void
-  open(...args: any[]) {
+  open(...args: any) { // @diff argsがanyでないと通らない
     if (this.connection && this.connection.peerContext) {
       console.warn('It is already opened.');
       this.close();
@@ -49,7 +49,7 @@ export class Network {
 
     console.log('Network open...', args);
     this.connection = this.initializeConnection();
-    this.connection.open.apply(this.connection, args as any); // @diff argsがanyでないと通らない
+    this.connection.open.apply(this.connection, args);
 
     window.addEventListener('unload', this.callbackUnload, false);
   }
