@@ -13,6 +13,29 @@ import { initAndGetRooms } from "./room";
 export const createPeerUser = () => {
   const myUser = PeerUser.createMyUser();
   myUser.name = 'プレイヤー';
+  if (PeerUser.myUser) PeerUser.myUser.name = 'ぷれいやー'
+  myUser.test = 'てすと';
+  console.log('myUser', myUser)
+  console.log(myUser.test)
+  const key = 'test2'
+  function getter(this: any) {
+    console.log('test2 getter', key)
+    return this.context.syncData[key];
+  }
+
+  function setter(this: any, value: any) {
+    console.log('test2 setter', value)
+    this.context.syncData[key] = value;
+    this.update();
+  }
+
+  Object.defineProperty(myUser, key, {
+    get: getter,
+    set: setter,
+    enumerable: true,
+    configurable: true
+  });
+  myUser.test2 = 'てすと2'
 
   EventSystem.register('application init')
     .on(EVENT_NAME.OPEN_NETWORK, event => {

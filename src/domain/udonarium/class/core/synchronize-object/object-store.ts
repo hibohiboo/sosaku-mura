@@ -85,6 +85,7 @@ export class ObjectStore {
   getObjects<T extends GameObject>(aliasName: string): T[]
   getObjects<T extends GameObject>(): T[]
   getObjects<T extends GameObject>(arg?: any): T[] {
+    console.log('getObjects', arg)
     if (arg == null) {
       return <T[]>Array.from(this.identifierMap.values());
     }
@@ -101,6 +102,7 @@ export class ObjectStore {
   update(identifier: string): void
   update(context: ObjectContext): void
   update(arg: any) {
+    console.log('update', arg)
     let context: Record<string, any> | null = null; // ObjectContext
     if (typeof arg === 'string') {
       const object: GameObject | null = this.get(arg);

@@ -8,7 +8,7 @@ export interface ObjectContext {
   identifier: string;
   majorVersion: number;
   minorVersion: number;
-  syncData: Object;
+  syncData: Record<string | symbol, any>;
 }
 
 export class GameObject {

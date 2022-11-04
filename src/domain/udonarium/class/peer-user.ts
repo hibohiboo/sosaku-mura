@@ -14,6 +14,16 @@ export class PeerUser extends GameObject {
   @SyncVar() userId: UserId = '';
   @SyncVar() peerId: PeerId = '';
   @SyncVar() name = '';
+  get test() {
+    console.log('test getter')
+    return this.context.syncData['test'];
+  }
+  set test(value: any) {
+    console.log('set setter', value)
+    this.context.syncData['test'] = value;
+    this.update();
+  }
+
 
 
   static myUser: PeerUser | null = null;

@@ -58,6 +58,7 @@ export class SynchronizeTask {
   }
 
   private initialize(requests: SynchronizeRequest[]) {
+    console.log('initialize', requests)
     for (const request of requests) {
       request.ttl--;
       this.requestMap.set(request.identifier, request);
@@ -97,6 +98,7 @@ export class SynchronizeTask {
   }
 
   private static onUpdate(identifier: ObjectIdentifier) {
+    console.log('onUpdate', identifier)
     if (!SynchronizeTask.tasksMap.has(identifier)) return;
     const tasks = SynchronizeTask.tasksMap.get(identifier);
     if (tasks == null) return;
